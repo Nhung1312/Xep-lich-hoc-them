@@ -8,41 +8,80 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
+        
+        /* Mobile optimizations */
+        .schedule-table {
+            font-size: 12px;
+        }
+        
+        @media (min-width: 640px) {
+            .schedule-table {
+                font-size: 14px;
+            }
+        }
+        
+        .time-cell {
+            min-width: 100px;
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            background: linear-gradient(to right, #f9fafb, #f3f4f6);
+        }
+        
+        .day-cell {
+            min-width: 70px;
+        }
+        
+        .checkbox-cell {
+            padding: 8px 4px;
+        }
+        
+        @media (min-width: 640px) {
+            .time-cell {
+                min-width: 140px;
+            }
+            .day-cell {
+                min-width: 90px;
+            }
+            .checkbox-cell {
+                padding: 16px 8px;
+            }
+        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-4">
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-2 sm:p-4">
     <div class="max-w-6xl mx-auto">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg p-8 mb-6 text-white">
-            <h1 class="text-4xl font-bold text-center mb-3">📚 Phần mềm xếp lịch học thêm</h1>
-            <p class="text-blue-100 text-center text-lg">Chọn các khung giờ bạn có thể học để giáo viên xếp lịch phù hợp</p>
-            <div class="flex justify-center mt-4">
-                <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
-                    <span class="text-sm font-medium">🎯 Hệ thống quản lý lịch học thông minh</span>
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg p-4 sm:p-8 mb-4 sm:mb-6 text-white">
+            <h1 class="text-2xl sm:text-4xl font-bold text-center mb-2 sm:mb-3">📚 Phần mềm xếp lịch học thêm</h1>
+            <p class="text-blue-100 text-center text-sm sm:text-lg">Chọn các khung giờ bạn có thể học để giáo viên xếp lịch phù hợp</p>
+            <div class="flex justify-center mt-3 sm:mt-4">
+                <div class="bg-white/20 backdrop-blur-sm rounded-lg px-3 sm:px-4 py-2">
+                    <span class="text-xs sm:text-sm font-medium">🎯 Hệ thống quản lý lịch học thông minh</span>
                 </div>
             </div>
         </div>
 
         <!-- Student Info -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border-l-4 border-blue-500">
+        <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-6 border-l-4 border-blue-500">
             <div class="flex items-center mb-4">
                 <div class="bg-blue-100 p-2 rounded-lg mr-3">
-                    <span class="text-2xl">👤</span>
+                    <span class="text-xl sm:text-2xl">👤</span>
                 </div>
-                <h2 class="text-xl font-semibold text-gray-800">Thông tin học sinh</h2>
+                <h2 class="text-lg sm:text-xl font-semibold text-gray-800">Thông tin học sinh</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
                         <span class="mr-2">📝</span> Họ và tên
                     </label>
-                    <input type="text" id="studentName" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" placeholder="Nhập họ tên học sinh" oninput="saveCurrentStudentInfo()">
+                    <input type="text" id="studentName" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 text-sm sm:text-base" placeholder="Nhập họ tên học sinh" oninput="saveCurrentStudentInfo()">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
                         <span class="mr-2">📚</span> Môn học
                     </label>
-                    <select id="subject" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" onchange="saveCurrentStudentInfo()">
+                    <select id="subject" class="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 text-sm sm:text-base" onchange="saveCurrentStudentInfo()">
                         <option value="">Chọn môn học</option>
                         <option value="Toán">📊 Toán</option>
                         <option value="Văn">📖 Ngữ Văn</option>
@@ -56,147 +95,151 @@
         </div>
 
         <!-- Schedule Grid -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border-l-4 border-green-500">
+        <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-6 border-l-4 border-green-500">
             <div class="flex items-center mb-4">
                 <div class="bg-green-100 p-2 rounded-lg mr-3">
-                    <span class="text-2xl">📅</span>
+                    <span class="text-xl sm:text-2xl">📅</span>
                 </div>
-                <h2 class="text-xl font-semibold text-gray-800">Chọn khung giờ có thể học</h2>
+                <h2 class="text-lg sm:text-xl font-semibold text-gray-800">Chọn khung giờ có thể học</h2>
             </div>
-            <div class="bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-lg mb-6">
-                <p class="text-sm text-gray-700 flex items-center">
-                    <span class="mr-2">✅</span> 
-                    <strong>Hướng dẫn:</strong> Tick vào các khung giờ bạn có thể học. Giáo viên sẽ xếp lịch vào các khung giờ còn lại.
+            <div class="bg-gradient-to-r from-green-50 to-blue-50 p-3 sm:p-4 rounded-lg mb-4 sm:mb-6">
+                <p class="text-xs sm:text-sm text-gray-700 flex items-start">
+                    <span class="mr-2 mt-0.5">✅</span> 
+                    <span><strong>Hướng dẫn:</strong> Tick vào các khung giờ bạn có thể học. Giáo viên sẽ xếp lịch vào các khung giờ còn lại.</span>
                 </p>
-                <div class="mt-2 text-xs text-gray-600 flex items-center space-x-4">
+                <div class="mt-2 text-xs text-gray-600 flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4">
                     <span class="flex items-center"><span class="w-3 h-3 bg-blue-100 rounded mr-1"></span>Thứ 2-6: Chỉ tối</span>
                     <span class="flex items-center"><span class="w-3 h-3 bg-purple-100 rounded mr-1"></span>Thứ 7-CN: Cả ngày</span>
                 </div>
             </div>
             
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
-                    <thead>
-                        <tr class="bg-gradient-to-r from-gray-100 to-gray-200">
-                            <th class="border border-gray-300 p-4 text-left font-semibold text-gray-800 bg-gray-50">
-                                <div class="flex items-center">
-                                    <span class="mr-2">⏰</span>Thời gian
-                                </div>
-                            </th>
-                            <th class="border border-gray-300 p-4 text-center font-semibold text-gray-700 bg-blue-50">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-lg">📘</span>
-                                    <span>Thứ 2</span>
-                                </div>
-                            </th>
-                            <th class="border border-gray-300 p-4 text-center font-semibold text-gray-700 bg-blue-50">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-lg">📗</span>
-                                    <span>Thứ 3</span>
-                                </div>
-                            </th>
-                            <th class="border border-gray-300 p-4 text-center font-semibold text-gray-700 bg-blue-50">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-lg">📙</span>
-                                    <span>Thứ 4</span>
-                                </div>
-                            </th>
-                            <th class="border border-gray-300 p-4 text-center font-semibold text-gray-700 bg-blue-50">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-lg">📕</span>
-                                    <span>Thứ 5</span>
-                                </div>
-                            </th>
-                            <th class="border border-gray-300 p-4 text-center font-semibold text-gray-700 bg-blue-50">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-lg">📓</span>
-                                    <span>Thứ 6</span>
-                                </div>
-                            </th>
-                            <th class="border border-gray-300 p-4 text-center font-semibold text-purple-700 bg-purple-50">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-lg">🎯</span>
-                                    <span>Thứ 7</span>
-                                </div>
-                            </th>
-                            <th class="border border-gray-300 p-4 text-center font-semibold text-red-700 bg-red-50">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-lg">🌟</span>
-                                    <span>Chủ nhật</span>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="scheduleTable">
-                        <!-- Schedule rows will be generated by JavaScript -->
-                    </tbody>
-                </table>
+            <!-- Mobile-optimized table -->
+            <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="min-w-full">
+                    <table class="w-full border-collapse schedule-table">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-gray-100 to-gray-200">
+                                <th class="time-cell border border-gray-300 p-2 sm:p-3 text-left font-semibold text-gray-800">
+                                    <div class="flex items-center">
+                                        <span class="mr-1 text-sm">⏰</span>
+                                        <span class="text-xs sm:text-sm font-medium">Thời gian</span>
+                                    </div>
+                                </th>
+                                <th class="day-cell border border-gray-300 p-1 sm:p-2 text-center font-semibold text-gray-700 bg-blue-50">
+                                    <div class="flex flex-col items-center">
+                                        <span class="text-sm">📘</span>
+                                        <span class="text-xs">T2</span>
+                                    </div>
+                                </th>
+                                <th class="day-cell border border-gray-300 p-1 sm:p-2 text-center font-semibold text-gray-700 bg-blue-50">
+                                    <div class="flex flex-col items-center">
+                                        <span class="text-sm">📗</span>
+                                        <span class="text-xs">T3</span>
+                                    </div>
+                                </th>
+                                <th class="day-cell border border-gray-300 p-1 sm:p-2 text-center font-semibold text-gray-700 bg-blue-50">
+                                    <div class="flex flex-col items-center">
+                                        <span class="text-sm">📙</span>
+                                        <span class="text-xs">T4</span>
+                                    </div>
+                                </th>
+                                <th class="day-cell border border-gray-300 p-1 sm:p-2 text-center font-semibold text-gray-700 bg-blue-50">
+                                    <div class="flex flex-col items-center">
+                                        <span class="text-sm">📕</span>
+                                        <span class="text-xs">T5</span>
+                                    </div>
+                                </th>
+                                <th class="day-cell border border-gray-300 p-1 sm:p-2 text-center font-semibold text-gray-700 bg-blue-50">
+                                    <div class="flex flex-col items-center">
+                                        <span class="text-sm">📓</span>
+                                        <span class="text-xs">T6</span>
+                                    </div>
+                                </th>
+                                <th class="day-cell border border-gray-300 p-1 sm:p-2 text-center font-semibold text-purple-700 bg-purple-50">
+                                    <div class="flex flex-col items-center">
+                                        <span class="text-sm">🎯</span>
+                                        <span class="text-xs">T7</span>
+                                    </div>
+                                </th>
+                                <th class="day-cell border border-gray-300 p-1 sm:p-2 text-center font-semibold text-red-700 bg-red-50">
+                                    <div class="flex flex-col items-center">
+                                        <span class="text-sm">🌟</span>
+                                        <span class="text-xs">CN</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="scheduleTable">
+                            <!-- Schedule rows will be generated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <!-- Action Buttons -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border-l-4 border-orange-500">
+        <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-6 border-l-4 border-orange-500">
             <div class="flex items-center mb-4">
                 <div class="bg-orange-100 p-2 rounded-lg mr-3">
-                    <span class="text-2xl">⚡</span>
+                    <span class="text-xl sm:text-2xl">⚡</span>
                 </div>
-                <h2 class="text-xl font-semibold text-gray-800">Thao tác</h2>
+                <h2 class="text-lg sm:text-xl font-semibold text-gray-800">Thao tác</h2>
             </div>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="submitSchedule()" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                <button onclick="submitSchedule()" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 text-sm">
                     <span class="mr-2">📤</span> Gửi lịch đăng ký
                 </button>
-                <button onclick="clearAll()" class="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105">
+                <button onclick="clearAll()" class="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 text-sm">
                     <span class="mr-2">🗑️</span> Xóa lịch đã chọn
                 </button>
-                <button onclick="clearStudentInfo()" class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105">
+                <button onclick="clearStudentInfo()" class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 text-sm">
                     <span class="mr-2">🧹</span> Xóa thông tin cá nhân
                 </button>
-                <button onclick="showSummary()" class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105">
+                <button onclick="showSummary()" class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 text-sm">
                     <span class="mr-2">📊</span> Xem tổng kết
                 </button>
             </div>
         </div>
 
         <!-- Teacher Panel -->
-        <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl shadow-lg p-6 mb-6 text-white">
-            <div class="flex items-center mb-6">
-                <div class="bg-white/20 backdrop-blur-sm p-3 rounded-lg mr-4">
-                    <span class="text-3xl">👨‍🏫</span>
+        <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-6 text-white">
+            <div class="flex items-center mb-4 sm:mb-6">
+                <div class="bg-white/20 backdrop-blur-sm p-2 sm:p-3 rounded-lg mr-3 sm:mr-4">
+                    <span class="text-2xl sm:text-3xl">👨‍🏫</span>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-bold">Bảng điều khiển giáo viên</h2>
-                    <p class="text-purple-100 text-sm">Quản lý và phân tích lịch học của tất cả học sinh</p>
+                    <h2 class="text-xl sm:text-2xl font-bold">Bảng điều khiển giáo viên</h2>
+                    <p class="text-purple-100 text-xs sm:text-sm">Quản lý và phân tích lịch học của tất cả học sinh</p>
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="showAllStudents()" class="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 border border-white/30">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                <button onclick="showAllStudents()" class="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 border border-white/30 text-sm">
                     <span class="mr-2">👥</span> Xem tất cả học sinh
                 </button>
-                <button onclick="findCommonSlots()" class="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 border border-white/30">
+                <button onclick="findCommonSlots()" class="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 border border-white/30 text-sm">
                     <span class="mr-2">🎯</span> Tìm giờ chung cho tất cả
                 </button>
-                <button onclick="clearStudentData()" class="bg-red-500/80 hover:bg-red-600/80 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 border border-red-300/50">
+                <button onclick="clearStudentData()" class="bg-red-500/80 hover:bg-red-600/80 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center shadow-lg transform hover:scale-105 border border-red-300/50 text-sm">
                     <span class="mr-2">🗑️</span> Xóa dữ liệu học sinh
                 </button>
             </div>
         </div>
 
         <!-- All Students Summary -->
-        <div id="allStudentsSection" class="bg-white rounded-xl shadow-lg p-6 mb-6 hidden">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">👥 Danh sách tất cả học sinh đã đăng ký</h2>
+        <div id="allStudentsSection" class="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-6 hidden">
+            <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4">👥 Danh sách tất cả học sinh đã đăng ký</h2>
             <div id="allStudentsContent"></div>
         </div>
 
         <!-- Common Slots -->
-        <div id="commonSlotsSection" class="bg-white rounded-xl shadow-lg p-6 mb-6 hidden">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">🎯 Khung giờ chung cho tất cả học sinh</h2>
+        <div id="commonSlotsSection" class="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-6 hidden">
+            <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4">🎯 Khung giờ chung cho tất cả học sinh</h2>
             <div id="commonSlotsContent"></div>
         </div>
 
         <!-- Summary -->
-        <div id="summarySection" class="bg-white rounded-xl shadow-lg p-6 hidden">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">📋 Tổng kết lịch đăng ký</h2>
+        <div id="summarySection" class="bg-white rounded-xl shadow-lg p-4 sm:p-6 hidden">
+            <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4">📋 Tổng kết lịch đăng ký</h2>
             <div id="summaryContent"></div>
         </div>
     </div>
@@ -254,10 +297,10 @@
                 
                 row.className = `${rowBg} hover:bg-blue-50 transition duration-200`;
                 row.innerHTML = `
-                    <td class="border border-gray-300 p-4 font-semibold text-gray-800 bg-gradient-to-r from-gray-50 to-gray-100">
+                    <td class="time-cell border border-gray-300 p-2 sm:p-3 font-semibold text-gray-800">
                         <div class="flex items-center">
-                            <span class="mr-2 text-lg">${timeIcon}</span>
-                            <span>${timeSlot}</span>
+                            <span class="mr-1 text-sm">${timeIcon}</span>
+                            <span class="text-xs sm:text-sm">${timeSlot}</span>
                         </div>
                     </td>
                     ${days.map((day, dayIndex) => {
@@ -267,12 +310,12 @@
                         
                         if (isAvailable) {
                             const cellBg = isWeekend ? 'bg-purple-50 hover:bg-purple-100' : 'bg-blue-50 hover:bg-blue-100';
-                            return `<td class="border border-gray-300 p-4 text-center ${cellBg} transition duration-200">
-                                <input type="checkbox" id="${day}_${timeSlot}" class="w-6 h-6 text-blue-600 rounded-md focus:ring-2 focus:ring-blue-500 cursor-pointer transform hover:scale-110 transition duration-200" onchange="updateSelection()">
+                            return `<td class="checkbox-cell border border-gray-300 text-center ${cellBg} transition duration-200">
+                                <input type="checkbox" id="${day}_${timeSlot}" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 rounded-md focus:ring-2 focus:ring-blue-500 cursor-pointer transform hover:scale-110 transition duration-200" onchange="updateSelection()">
                             </td>`;
                         } else {
-                            return `<td class="border border-gray-300 p-4 text-center bg-gray-100">
-                                <span class="text-gray-400 text-sm font-medium">❌ Không có lịch</span>
+                            return `<td class="checkbox-cell border border-gray-300 text-center bg-gray-100">
+                                <span class="text-gray-400 text-xs font-medium">❌</span>
                             </td>`;
                         }
                     }).join('')}
@@ -411,28 +454,28 @@
 
             const summaryContent = document.getElementById('summaryContent');
             summaryContent.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h3 class="font-semibold text-blue-800 mb-2">📝 Thông tin học sinh</h3>
-                        <p><strong>Họ tên:</strong> ${studentName}</p>
-                        <p><strong>Môn học:</strong> ${subject}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                    <div class="bg-blue-50 p-3 sm:p-4 rounded-lg">
+                        <h3 class="font-semibold text-blue-800 mb-2 text-sm sm:text-base">📝 Thông tin học sinh</h3>
+                        <p class="text-sm"><strong>Họ tên:</strong> ${studentName}</p>
+                        <p class="text-sm"><strong>Môn học:</strong> ${subject}</p>
                     </div>
                     
-                    <div class="bg-red-50 p-4 rounded-lg">
-                        <h3 class="font-semibold text-red-800 mb-2">❌ Khung giờ KHÔNG thể học (${selectedSlots.length})</h3>
+                    <div class="bg-red-50 p-3 sm:p-4 rounded-lg">
+                        <h3 class="font-semibold text-red-800 mb-2 text-sm sm:text-base">❌ Khung giờ KHÔNG thể học (${selectedSlots.length})</h3>
                         ${selectedSlots.length > 0 ? 
-                            selectedSlots.map(slot => `<p class="text-sm">• ${slot.day}: ${slot.time}</p>`).join('') :
-                            '<p class="text-sm text-gray-600">Không có khung giờ nào được chọn</p>'
+                            selectedSlots.map(slot => `<p class="text-xs sm:text-sm">• ${slot.day}: ${slot.time}</p>`).join('') :
+                            '<p class="text-xs sm:text-sm text-gray-600">Không có khung giờ nào được chọn</p>'
                         }
                     </div>
                 </div>
                 
-                <div class="mt-6 bg-green-50 p-4 rounded-lg">
-                    <h3 class="font-semibold text-green-800 mb-2">✅ Khung giờ CÓ THỂ xếp lịch học (${availableSlots.length})</h3>
+                <div class="mt-4 sm:mt-6 bg-green-50 p-3 sm:p-4 rounded-lg">
+                    <h3 class="font-semibold text-green-800 mb-2 text-sm sm:text-base">✅ Khung giờ CÓ THỂ xếp lịch học (${availableSlots.length})</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                         ${availableSlots.length > 0 ? 
-                            availableSlots.map(slot => `<p class="text-sm bg-white p-2 rounded border">📅 ${slot.day}: ${slot.time}</p>`).join('') :
-                            '<p class="text-sm text-gray-600">Không có khung giờ nào có thể xếp lịch</p>'
+                            availableSlots.map(slot => `<p class="text-xs sm:text-sm bg-white p-2 rounded border">📅 ${slot.day}: ${slot.time}</p>`).join('') :
+                            '<p class="text-xs sm:text-sm text-gray-600">Không có khung giờ nào có thể xếp lịch</p>'
                         }
                     </div>
                 </div>
@@ -450,17 +493,17 @@
 
             const content = document.getElementById('allStudentsContent');
             content.innerHTML = `
-                <div class="mb-4 text-sm text-gray-600">
+                <div class="mb-4 text-xs sm:text-sm text-gray-600">
                     Tổng số học sinh đã đăng ký: <strong>${allStudentsData.length}</strong>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     ${allStudentsData.map(student => `
-                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                            <h4 class="font-semibold text-gray-800">${student.name}</h4>
-                            <p class="text-sm text-gray-600">Môn: ${student.subject}</p>
-                            <p class="text-sm text-gray-600">Đăng ký: ${student.submittedAt}</p>
-                            <p class="text-sm text-green-600 mt-2">✅ Có thể học: ${student.availableSlots.length} khung giờ</p>
-                            <p class="text-sm text-red-600">❌ Không thể: ${student.unavailableSlots.length} khung giờ</p>
+                        <div class="border border-gray-200 rounded-lg p-3 sm:p-4 bg-gray-50">
+                            <h4 class="font-semibold text-gray-800 text-sm sm:text-base">${student.name}</h4>
+                            <p class="text-xs sm:text-sm text-gray-600">Môn: ${student.subject}</p>
+                            <p class="text-xs sm:text-sm text-gray-600">Đăng ký: ${student.submittedAt}</p>
+                            <p class="text-xs sm:text-sm text-green-600 mt-2">✅ Có thể học: ${student.availableSlots.length} khung giờ</p>
+                            <p class="text-xs sm:text-sm text-red-600">❌ Không thể: ${student.unavailableSlots.length} khung giờ</p>
                             <button onclick="showStudentDetail(${student.id})" class="mt-2 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">
                                 Xem chi tiết
                             </button>
@@ -537,34 +580,34 @@
 
             const content = document.getElementById('commonSlotsContent');
             content.innerHTML = `
-                <div class="mb-6">
-                    <div class="bg-green-100 border border-green-300 rounded-lg p-4 mb-4">
-                        <h3 class="font-semibold text-green-800 mb-2">🎯 Khung giờ TẤT CẢ học sinh đều có thể học (${commonSlots.length} khung)</h3>
+                <div class="mb-4 sm:mb-6">
+                    <div class="bg-green-100 border border-green-300 rounded-lg p-3 sm:p-4 mb-4">
+                        <h3 class="font-semibold text-green-800 mb-2 text-sm sm:text-base">🎯 Khung giờ TẤT CẢ học sinh đều có thể học (${commonSlots.length} khung)</h3>
                         ${commonSlots.length > 0 ? 
                             `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                                 ${commonSlots.map(slot => 
-                                    `<div class="bg-white p-3 rounded border border-green-200">
-                                        <div class="font-medium text-green-700">📅 ${slot.day}</div>
-                                        <div class="text-sm text-green-600">⏰ ${slot.time}</div>
+                                    `<div class="bg-white p-2 sm:p-3 rounded border border-green-200">
+                                        <div class="font-medium text-green-700 text-xs sm:text-sm">📅 ${slot.day}</div>
+                                        <div class="text-xs sm:text-sm text-green-600">⏰ ${slot.time}</div>
                                         <div class="text-xs text-green-500 mt-1">✅ ${allStudentsData.length}/${allStudentsData.length} học sinh</div>
                                     </div>`
                                 ).join('')}
                             </div>` :
-                            '<p class="text-gray-600">❌ Không có khung giờ nào tất cả học sinh đều rảnh</p>'
+                            '<p class="text-xs sm:text-sm text-gray-600">❌ Không có khung giờ nào tất cả học sinh đều rảnh</p>'
                         }
                     </div>
 
-                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                        <h3 class="font-semibold text-blue-800 mb-3">📊 Phân tích chi tiết từng khung giờ</h3>
-                        <div class="space-y-3">
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
+                        <h3 class="font-semibold text-blue-800 mb-3 text-sm sm:text-base">📊 Phân tích chi tiết từng khung giờ</h3>
+                        <div class="space-y-2 sm:space-y-3">
                             ${slotAnalysis.map(slot => `
-                                <div class="bg-white p-3 rounded border ${slot.percentage === 100 ? 'border-green-300' : slot.percentage >= 70 ? 'border-yellow-300' : 'border-red-300'}">
+                                <div class="bg-white p-2 sm:p-3 rounded border ${slot.percentage === 100 ? 'border-green-300' : slot.percentage >= 70 ? 'border-yellow-300' : 'border-red-300'}">
                                     <div class="flex justify-between items-start mb-2">
                                         <div>
-                                            <span class="font-medium">${slot.day} - ${slot.time}</span>
+                                            <span class="font-medium text-xs sm:text-sm">${slot.day} - ${slot.time}</span>
                                         </div>
                                         <div class="text-right">
-                                            <span class="text-sm font-semibold ${slot.percentage === 100 ? 'text-green-600' : slot.percentage >= 70 ? 'text-yellow-600' : 'text-red-600'}">
+                                            <span class="text-xs sm:text-sm font-semibold ${slot.percentage === 100 ? 'text-green-600' : slot.percentage >= 70 ? 'text-yellow-600' : 'text-red-600'}">
                                                 ${slot.availableCount}/${allStudentsData.length} (${slot.percentage}%)
                                             </span>
                                         </div>
@@ -608,5 +651,5 @@
             loadSavedStudentInfo(); // Load saved student info
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97aa8612d5279b44',t:'MTc1NzEyNTYwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97aa9e6e33b2064f',t:'MTc1NzEyNjYwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
